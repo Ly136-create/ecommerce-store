@@ -1,191 +1,173 @@
-# Ecommerce Store
+# ShopHub E-commerce Store
 
-A full-stack ecommerce application built with React, TypeScript, Node.js, Express, and PostgreSQL.
+A full-stack e-commerce application built with Flask (Backend) and React + TypeScript (Frontend).
 
-## 🚀 Tech Stack
+## Features
 
 ### Frontend
-- **React 18** - UI library
-- **TypeScript** - Type safety
-- **Vite** - Build tool and dev server
-- **Tailwind CSS** - Styling
-- **React Router** - Navigation
-- **Axios** - HTTP client
+- ✅ Modern React UI with TailwindCSS v4
+- ✅ Product browsing and search
+- ✅ Shopping cart functionality
+- ✅ User authentication (Login/Register)
+- ✅ Checkout process
+- ✅ Responsive design
 
 ### Backend
-- **Node.js** - Runtime environment
-- **Express** - Web framework
-- **TypeScript** - Type safety
-- **Prisma** - ORM for database
-- **PostgreSQL** - Database
-- **JWT** - Authentication
-- **bcryptjs** - Password hashing
+- ✅ Flask REST API
+- ✅ JWT authentication
+- ✅ Product CRUD operations
+- ✅ Order management
+- ✅ User authentication
+- ✅ SQLite database
 
-## 📋 Prerequisites
+## Quick Start
 
-- Node.js (v18 or higher)
-- Docker and Docker Compose
-- Git
+### Backend Setup
 
-## 🛠️ Installation
+1. Navigate to backend folder:
+```bash
+cd backend
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Ly136-create/ecommerce-store.git
-   cd ecommerce-store
-   ```
+2. **Windows:** Run the startup script:
+```bash
+run.bat
+```
 
-2. **Install backend dependencies**
-   ```bash
-   cd backend
-   npm install
-   ```
+**Or manually:**
+```bash
+# Create virtual environment
+python -m venv venv
 
-3. **Install frontend dependencies**
-   ```bash
-   cd ../frontend
-   npm install
-   ```
+# Activate virtual environment
+venv\Scripts\activate  # Windows
+source venv/bin/activate  # Mac/Linux
 
-4. **Set up environment variables**
-   ```bash
-   cd ../backend
-   cp .env.example .env
-   # Edit .env file with your configuration
-   ```
+# Install dependencies
+pip install -r requirements.txt
 
-## 🗄️ Database Setup
+# Seed database
+python seed_data.py
 
-1. **Start PostgreSQL with Docker**
-   ```bash
-   docker-compose up -d
-   ```
+# Run server
+python app.py
+```
 
-2. **Generate Prisma Client**
-   ```bash
-   cd backend
-   npm run prisma:generate
-   ```
+The backend will be available at `http://localhost:5000`
 
-3. **Run database migrations**
-   ```bash
-   npm run prisma:migrate
-   ```
+### Frontend Setup
 
-## 🚀 Running the Application
+1. Navigate to frontend folder:
+```bash
+cd frontend
+```
 
-### Development Mode
+2. Install dependencies:
+```bash
+npm install
+```
 
-1. **Start the backend server**
-   ```bash
-   cd backend
-   npm run dev
-   ```
-   Backend will run on `http://localhost:5000`
+3. Start development server:
+```bash
+npm run dev
+```
 
-2. **Start the frontend development server**
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-   Frontend will run on `http://localhost:3000`
+The frontend will be available at `http://localhost:5175`
 
-### Production Mode
+## Test Credentials
 
-1. **Build the backend**
-   ```bash
-   cd backend
-   npm run build
-   npm start
-   ```
+After seeding the database, you can login with:
 
-2. **Build the frontend**
-   ```bash
-   cd frontend
-   npm run build
-   npm run preview
-   ```
+**Customer Account:**
+- Email: `test@example.com`
+- Password: `password123`
 
-## 📁 Project Structure
+**Admin Account:**
+- Email: `admin@example.com`
+- Password: `admin123`
+
+## API Endpoints
+
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/me` - Get current user
+- `POST /api/auth/logout` - Logout user
+
+### Products
+- `GET /api/products` - Get all products
+- `GET /api/products/<id>` - Get single product
+- `POST /api/products` - Create product (auth required)
+- `PUT /api/products/<id>` - Update product (auth required)
+- `DELETE /api/products/<id>` - Delete product (auth required)
+- `GET /api/products/search?q=<query>` - Search products
+
+### Orders
+- `GET /api/orders` - Get user orders (auth required)
+- `GET /api/orders/<id>` - Get single order (auth required)
+- `POST /api/orders` - Create order (auth required)
+- `PUT /api/orders/<id>/status` - Update order status (auth required)
+- `DELETE /api/orders/<id>` - Cancel order (auth required)
+
+## Project Structure
 
 ```
 ecommerce-store/
-├── backend/
-│   ├── prisma/
-│   │   └── schema.prisma      # Database schema
-│   ├── src/
-│   │   ├── app.ts             # Express app configuration
-│   │   └── server.ts          # Server entry point
-│   ├── package.json
-│   └── tsconfig.json
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/        # React components
-│   │   ├── pages/             # Page components
-│   │   ├── styles/            # CSS and styling
-│   │   └── main.tsx           # App entry point
-│   ├── package.json
-│   └── vite.config.ts
-└── docker-compose.yml         # Docker configuration
+├── backend/                 # Flask backend
+│   ├── routes/             # API routes
+│   │   ├── products.py     # Product endpoints
+│   │   ├── auth.py         # Auth endpoints
+│   │   └── orders.py       # Order endpoints
+│   ├── app.py              # Main Flask app
+│   ├── models.py           # Database models
+│   ├── config.py           # Configuration
+│   ├── seed_data.py        # Database seeding
+│   ├── requirements.txt    # Python dependencies
+│   └── run.bat             # Windows startup script
+│
+└── frontend/               # React frontend
+    ├── src/
+    │   ├── components/     # React components
+    │   ├── pages/          # Page components
+    │   ├── context/        # React context
+    │   ├── services/       # API services
+    │   └── index.css       # TailwindCSS styles
+    ├── package.json        # Node dependencies
+    └── vite.config.ts      # Vite configuration
 ```
 
-## 🔑 Environment Variables
-
-Create a `.env` file in the `backend` directory:
-
-```env
-DATABASE_URL="postgresql://postgres:password@localhost:5432/ecommerce?schema=public"
-PORT=5000
-JWT_SECRET=your-secret-key-change-this-in-production
-NODE_ENV=development
-```
-
-## 📝 Available Scripts
-
-### Backend
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run prisma:generate` - Generate Prisma Client
-- `npm run prisma:migrate` - Run database migrations
-- `npm run prisma:studio` - Open Prisma Studio
+## Technologies Used
 
 ### Frontend
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+- React 19
+- TypeScript
+- TailwindCSS v4
+- React Router
+- Axios
+- Vite
 
-## 🗃️ Database Schema
+### Backend
+- Flask 3.0
+- SQLAlchemy
+- Flask-JWT-Extended
+- Flask-CORS
+- SQLite
 
-The application uses the following main models:
-- **User** - User accounts and authentication
-- **Product** - Product catalog
-- **Cart** - Shopping cart
-- **CartItem** - Items in cart
-- **Order** - Customer orders
-- **OrderItem** - Items in orders
+## Development
 
-## 🤝 Contributing
+### Backend Development
+The backend uses Flask with SQLAlchemy ORM. To make changes:
+- Models are in `models.py`
+- Routes are in the `routes/` folder
+- Configuration is in `config.py`
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+### Frontend Development
+The frontend uses React with TypeScript. To make changes:
+- Components are in `src/components/`
+- Pages are in `src/pages/`
+- API services are in `src/services/`
+- Styles use TailwindCSS
 
-## 📄 License
+## License
 
-This project is licensed under the ISC License.
-
-## 👤 Author
-
-**Ly136-create**
-
-- GitHub: [@Ly136-create](https://github.com/Ly136-create)
-
-## 🙏 Acknowledgments
-
-- Built with modern web technologies
-- Inspired by best practices in full-stack development
+MIT
