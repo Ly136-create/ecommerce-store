@@ -1,0 +1,32 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - JWT_SECRET_KEY=your-secret-key
+      - DATABASE_URL=sqlite:///app.db
+    volumes:
+      - backend_data:/app/instance
+    networks:
+      - ecommerce_network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - ecommerce_network
+
+volumes:
+  backend_data:
+
+networks:
+  ecommerce_network:
